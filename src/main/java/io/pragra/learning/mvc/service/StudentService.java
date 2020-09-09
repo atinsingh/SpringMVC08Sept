@@ -2,6 +2,7 @@ package io.pragra.learning.mvc.service;
 
 import io.pragra.learning.mvc.domain.Course;
 import io.pragra.learning.mvc.domain.Student;
+import io.pragra.learning.mvc.exceptions.StudentNotFoundExceptions;
 import io.pragra.learning.mvc.repo.CourseRepo;
 import io.pragra.learning.mvc.repo.StudentRepo;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class StudentService {
     }
 
     public Student getOneById(Long id) {
-        return this.repo.findById(id).get();
+        return this.repo.findById(id).orElseThrow(
+                ()->new StudentNotFoundExceptions( "No Such Student in Database"));
     }
 }
